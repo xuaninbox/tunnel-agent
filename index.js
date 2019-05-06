@@ -5,7 +5,6 @@ var net = require('net')
   , http = require('http')
   , https = require('https')
   , events = require('events')
-  , assert = require('assert')
   , util = require('util')
   , Buffer = require('safe-buffer').Buffer
   ;
@@ -156,8 +155,7 @@ TunnelingAgent.prototype.createSocket = function createSocket(options, cb) {
     connectReq.removeAllListeners()
     socket.removeAllListeners()
 
-    if (res.statusCode === 200) {
-      assert.equal(head.length, 0)
+    if (res.statusCode === 200 && head.length === 0) {
       debug('tunneling connection has established')
       self.sockets[self.sockets.indexOf(placeholder)] = socket
       cb(socket)
